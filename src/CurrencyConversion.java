@@ -18,6 +18,7 @@ public class CurrencyConversion {
         check.toLowerCase();
 
         double result = 0;
+        boolean isValid = true;
 
 
         if (check.contains("usd") && check.contains("eur")){
@@ -38,11 +39,15 @@ public class CurrencyConversion {
         else if (check.contains("gbp") && check.contains("jpy")) {
             result = gbpJPYConverter(firstCurrency, secondCurrency, amount);
         }
-        else result = amount;
+        else if (firstCurrency.equals(secondCurrency)) result = amount;
+        else isValid = false;
 
-        String resultstr = String.format("%.2f", result);
-        System.out.printf(amount + " " + firstCurrency.toUpperCase() + " is equal to " + resultstr + " " + secondCurrency.toUpperCase());
-    }
+        if (isValid) {
+            String resultstr = String.format("%.2f", result);
+            System.out.printf(amount + " " + firstCurrency.toUpperCase() + " is equal to " + resultstr + " " + secondCurrency.toUpperCase());
+        }
+        else System.out.println("error, please input correctly");
+        }
 
     public static double usdEURConverter(String cur1, String cur2, double n){
         if (cur1.equalsIgnoreCase("usd") || cur2.equalsIgnoreCase("eur"))
